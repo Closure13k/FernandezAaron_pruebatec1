@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @NamedQueries({
         @NamedQuery(name = "Employee.findAllActiveEmployees", query = "SELECT e FROM Empleados e WHERE e.active <> false"),
         @NamedQuery(name = "Employee.findByNif", query = "SELECT e FROM Empleados e WHERE e.active <> false AND e.nif = :nif"),
-        @NamedQuery(name = "Employee.findAllByRole", query = "SELECT e FROM Empleados e WHERE e.active <> false AND e.role = :role")
+        @NamedQuery(name = "Employee.findAllByRole", query = "SELECT e FROM Empleados e WHERE e.active <> false AND lower(e.role) LIKE lower(concat(:role, '%'))"),
 })
 @Table(uniqueConstraints = {
         //Alter table add
@@ -20,35 +20,39 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_empleado")
     private int id;
-    /*
-      !TODO: Necesita un validador de DNI en la clase controladora de Empleado.
-     */
+
+    //!TODO: Validacion DNI
     @Column(name = "dni_nif",
             //ColumnDefinition sobreescribe opciones como nullable
             columnDefinition = "CHAR(9) NOT NULL")
     private String nif;
 
+    //!TODO: Validacion nombre
     @Column(name = "nombre",
             nullable = false,
             length = 50)
     private String name;
 
+    //!TODO: Validacion apellido
     @Column(name = "apellido",
             nullable = false,
             length = 50)
     private String surname;
 
+    //!TODO: Validacion cargo
     @Column(name = "cargo",
             nullable = false,
             length = 50)
     private String role;
 
+    //!TODO: Validacion salario
     @Column(name = "salario",
             nullable = false,
             precision = 10,
             scale = 2)
     private Double salary;
 
+    //!TODO: Validacion fecha
     @Column(name = "fecha_contratacion",
             nullable = false)
     private LocalDate hireDate;
@@ -58,10 +62,13 @@ public class Employee implements Serializable {
     private Boolean active;
 
     public Employee() {
+        this.id = 0;
+        this.active = Boolean.TRUE;
     }
 
     public Employee(String nif, String name, String surname, String role,
                     Double salary, LocalDate hireDate) {
+        this.id = 0;
         this.nif = nif;
         this.name = name;
         this.surname = surname;
@@ -135,16 +142,6 @@ public class Employee implements Serializable {
         this.active = active;
     }
 
-    public String getFormattedDetails() {
-        return "ID: " + id + "\n"
-                + "NIF: " + nif + "\n"
-                + "Nombre: " + name + "\n"
-                + "Apellido: " + surname + "\n"
-                + "Cargo: " + role + "\n"
-                + "Salario: " + salary + "\n"
-                + "Fecha de contratación: " + hireDate;
-    }
-
     @Override
     public String toString() {
         return "Employee{"
@@ -157,5 +154,17 @@ public class Employee implements Serializable {
                 + ", hireDate=" + hireDate
                 + ", active=" + active.toString()
                 + '}';
+    }
+
+    /**
+     * Devuelve los detalles del empleado en un formato más legible y omitiendo el borrado lógico.
+     *
+     * @return Los detalles del empleado.
+     */
+    public String getFormattedDetails() {
+        return "----------------------------------------\n"
+                + "| ID: " + id + " | NIF: " + nif + " | Nombre: " + name + " | Apellido: " + surname + "\n| Cargo: " + role
+                + " | Salario: " + salary + " | Fecha de contratación: " + hireDate
+                + "\n----------------------------------------";
     }
 }

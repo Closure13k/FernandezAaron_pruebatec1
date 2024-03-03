@@ -6,6 +6,7 @@ package com.closure13k.aaronfmpt1.persistence;
 
 import com.closure13k.aaronfmpt1.logic.employee.Employee;
 import com.closure13k.aaronfmpt1.persistence.exceptions.NonexistentEntityException;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,10 +17,6 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author Usuario
- */
 public class EmployeeJpaController implements Serializable {
 
     public EmployeeJpaController() {
@@ -29,6 +26,7 @@ public class EmployeeJpaController implements Serializable {
     public EmployeeJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -58,7 +56,7 @@ public class EmployeeJpaController implements Serializable {
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
+            if (msg == null || msg.isEmpty()) {
                 int id = employee.getId();
                 if (findEmployee(id) == null) {
                     throw new NonexistentEntityException("The employee with id " + id + " no longer exists.");
@@ -117,10 +115,43 @@ public class EmployeeJpaController implements Serializable {
         }
     }
 
+    public List<Employee> findActiveEmployeeEntities() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Employee.findAllActiveEmployees");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Employee> findActiveEmployeeEntitiesByRole(String role) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Employee.findAllByRole");
+            q.setParameter("role", role);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+
     public Employee findEmployee(int id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Employee.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public Employee findEmployee(String nif) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Employee.findByNif");
+            q.setParameter("nif", nif);
+            return (Employee) q.getSingleResult();
         } finally {
             em.close();
         }
@@ -138,5 +169,6 @@ public class EmployeeJpaController implements Serializable {
             em.close();
         }
     }
+
 
 }
