@@ -9,11 +9,7 @@ import com.closure13k.aaronfmpt1.persistence.exceptions.NonexistentEntityExcepti
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -39,6 +35,18 @@ public class EmployeeJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(employee);
+            em.getTransaction().commit();
+        }catch (RollbackException e){
+            em.getTransaction().begin();
+            Employee eToUpdate = findInactiveEmployee(employee.getNif());
+            eToUpdate.setActive(true);
+            eToUpdate.setName(employee.getName());
+            eToUpdate.setSurname(employee.getSurname());
+            eToUpdate.setRole(employee.getRole());
+            eToUpdate.setSalary(employee.getSalary());
+            eToUpdate.setHireDate(employee.getHireDate());
+
+            em.merge(eToUpdate);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -150,6 +158,17 @@ public class EmployeeJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             Query q = em.createNamedQuery("Employee.findByNif");
+            q.setParameter("nif", nif);
+            return (Employee) q.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
+    private Employee findInactiveEmployee(String nif){
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Employee.findInactiveByNif");
             q.setParameter("nif", nif);
             return (Employee) q.getSingleResult();
         } finally {

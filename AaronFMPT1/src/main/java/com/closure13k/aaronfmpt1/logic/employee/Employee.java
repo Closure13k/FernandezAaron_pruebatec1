@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @NamedQueries({
         @NamedQuery(name = "Employee.findAllActiveEmployees", query = "SELECT e FROM Empleados e WHERE e.active <> false"),
         @NamedQuery(name = "Employee.findByNif", query = "SELECT e FROM Empleados e WHERE e.active <> false AND e.nif = :nif"),
+        @NamedQuery(name = "Employee.findInactiveByNif", query = "SELECT e FROM Empleados e WHERE e.active = false AND e.nif = :nif"),
         @NamedQuery(name = "Employee.findAllByRole", query = "SELECT e FROM Empleados e WHERE e.active <> false AND lower(e.role) LIKE lower(concat(:role, '%'))"),
 })
 @Table(uniqueConstraints = {
