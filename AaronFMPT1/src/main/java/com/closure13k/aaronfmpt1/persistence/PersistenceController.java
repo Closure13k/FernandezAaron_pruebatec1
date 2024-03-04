@@ -18,6 +18,9 @@ public class PersistenceController {
     }
 
     public void deleteEmployee(Employee employee) {
+        if (!employee.isActive()) {
+            return;
+        }
         try {
             employee.setActive(false);
             empJpaCont.edit(employee);
@@ -45,4 +48,11 @@ public class PersistenceController {
     }
 
 
+    public Employee findEmployeeByNif(String nif) {
+        try {
+            return empJpaCont.findEmployee(nif);
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

@@ -74,5 +74,7 @@ public class EmployeeController {
     }
 
 
-
+    public Employee findEmployeeByNif(String nif) {
+        return pController.findEmployeeByNif(nif);
+    }
 }

@@ -29,8 +29,6 @@ public final class OutputController {
             4. Listar, por cargo, a todos los empleados
             5. Actualizar empleado
             -1. Salir
-                        
-            Opción:  
             """;
     private static final String UPDATE_MENU = """
                         
@@ -42,8 +40,6 @@ public final class OutputController {
             5. Modificar fecha de contratación
             0. Guardar cambios y regresar
             -1. Cancelar y regresar
-                        
-            Opción:    
             """;
 
     private static final String INVALID_OPTION = "Opción no válida. Inténtelo de nuevo.";
