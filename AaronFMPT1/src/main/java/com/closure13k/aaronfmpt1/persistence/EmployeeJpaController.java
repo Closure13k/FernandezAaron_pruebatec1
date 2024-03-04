@@ -6,6 +6,7 @@ package com.closure13k.aaronfmpt1.persistence;
 
 import com.closure13k.aaronfmpt1.logic.employee.Employee;
 import com.closure13k.aaronfmpt1.persistence.exceptions.NonexistentEntityException;
+import com.closure13k.aaronfmpt1.persistence.exceptions.PreexistingEntityException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,16 +30,21 @@ public class EmployeeJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Employee employee) {
+    public void create(Employee employee) throws PreexistingEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(employee);
             em.getTransaction().commit();
-        }catch (RollbackException e){
-            em.getTransaction().begin();
+        } catch (RollbackException e) {
             Employee eToUpdate = findInactiveEmployee(employee.getNif());
+            if (eToUpdate == null) {
+                throw new PreexistingEntityException("El empleado con nif " + employee.getNif() + " ya existe.");
+            }
+            em = getEntityManager();
+            em.getTransaction().begin();
+
             eToUpdate.setActive(true);
             eToUpdate.setName(employee.getName());
             eToUpdate.setSurname(employee.getSurname());
@@ -55,7 +61,7 @@ public class EmployeeJpaController implements Serializable {
         }
     }
 
-    public void edit(Employee employee) throws NonexistentEntityException, Exception {
+    public void edit(Employee employee) throws Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -160,17 +166,22 @@ public class EmployeeJpaController implements Serializable {
             Query q = em.createNamedQuery("Employee.findByNif");
             q.setParameter("nif", nif);
             return (Employee) q.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+
         } finally {
             em.close();
         }
     }
 
-    private Employee findInactiveEmployee(String nif){
+    private Employee findInactiveEmployee(String nif) {
         EntityManager em = getEntityManager();
         try {
             Query q = em.createNamedQuery("Employee.findInactiveByNif");
             q.setParameter("nif", nif);
             return (Employee) q.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         } finally {
             em.close();
         }

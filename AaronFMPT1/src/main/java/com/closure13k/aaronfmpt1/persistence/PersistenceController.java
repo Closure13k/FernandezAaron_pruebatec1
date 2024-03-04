@@ -2,6 +2,7 @@ package com.closure13k.aaronfmpt1.persistence;
 
 import com.closure13k.aaronfmpt1.logic.employee.Employee;
 import com.closure13k.aaronfmpt1.persistence.exceptions.NonexistentEntityException;
+import com.closure13k.aaronfmpt1.persistence.exceptions.PreexistingEntityException;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class PersistenceController {
     EmployeeJpaController empJpaCont = new EmployeeJpaController();
 
-    public void createEmployee(Employee employee) {
+    public void createEmployee(Employee employee) throws PreexistingEntityException {
         empJpaCont.create(employee);
     }
 

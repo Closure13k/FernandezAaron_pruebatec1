@@ -4,6 +4,7 @@ import com.closure13k.aaronfmpt1.logic.employee.Employee;
 import com.closure13k.aaronfmpt1.logic.employee.EmployeeController;
 import com.closure13k.aaronfmpt1.logic.employee.EmployeeDetailController;
 import com.closure13k.aaronfmpt1.logic.employee.EmployeeValidationException;
+import com.closure13k.aaronfmpt1.persistence.exceptions.PreexistingEntityException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,13 @@ public final class AppController {
                 default -> messages.invalidOption();
             }
         } while (option != -1);
+
+        inputs.close();
     }
 
+    /**
+     * Inicia el proceso de creación de un empleado.
+     */
     private void createEmployee() {
         //!TODO: Implementar creado por lotes.
 
@@ -53,11 +59,19 @@ public final class AppController {
             } catch (EmployeeValidationException e) {
                 messages.print(e.getMessage());
                 attempts--;
+            } catch (PreexistingEntityException e) {
+                messages.print(e.getMessage());
+                return;
             }
         } while (attempts > 0);
         messages.print("Demasiados intentos fallidos. Regresando al menú principal.");
     }
 
+    /**
+     * Llena todos los detalles del empleado.
+     * @param employee El empleado a llenar.
+     * @throws EmployeeValidationException Si algún detalle no pasa la validación.
+     */
     private void populateAllDetails(Employee employee) throws EmployeeValidationException {
         empDetails.populateEmployeeName(employee);
         empDetails.populateEmployeeSurname(employee);
@@ -67,6 +81,9 @@ public final class AppController {
         empDetails.populateEmployeeHireDate(employee);
     }
 
+    /**
+     * Inicia el proceso de actualización de un empleado.
+     */
     private void updateEmployee() {
         messages.print("¿Desea buscar al empleado por id o por NIF?");
         int option = inputs.requestInt("1. Id\n2. NIF\nOpción: ");
@@ -92,6 +109,10 @@ public final class AppController {
         updateMenu(employee);
     }
 
+    /**
+     * Muestra el menú de actualización para escoger qué campo actualizar.
+     * @param employee El empleado a actualizar.
+     */
     private void updateMenu(Employee employee) {
         int attempts = 3;
         while (attempts > 0) {
@@ -123,6 +144,9 @@ public final class AppController {
         }
     }
 
+    /**
+     * Inicia el proceso de eliminación de un empleado.
+     */
     private void deleteEmployee() {
         //Solicitud búsqueda por id o nif
         //Quiere buscar por id o nif?

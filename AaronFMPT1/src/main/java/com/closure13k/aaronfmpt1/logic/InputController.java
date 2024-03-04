@@ -61,4 +61,8 @@ public final class InputController {
             return null;
         }
     }
+
+    public void close() {
+        input.close();
+    }
 }

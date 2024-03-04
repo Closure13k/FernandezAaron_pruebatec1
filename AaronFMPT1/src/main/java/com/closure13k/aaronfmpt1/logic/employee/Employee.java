@@ -22,38 +22,32 @@ public class Employee implements Serializable {
     @Column(name = "id_empleado")
     private int id;
 
-    //!TODO: Validacion DNI
     @Column(name = "dni_nif",
             //ColumnDefinition sobreescribe opciones como nullable
             columnDefinition = "CHAR(9) NOT NULL")
     private String nif;
 
-    //!TODO: Validacion nombre
     @Column(name = "nombre",
             nullable = false,
             length = 50)
     private String name;
 
-    //!TODO: Validacion apellido
     @Column(name = "apellido",
             nullable = false,
             length = 50)
     private String surname;
 
-    //!TODO: Validacion cargo
     @Column(name = "cargo",
             nullable = false,
             length = 50)
     private String role;
 
-    //!TODO: Validacion salario
     @Column(name = "salario",
             nullable = false,
             precision = 10,
             scale = 2)
     private Double salary;
 
-    //!TODO: Validacion fecha
     @Column(name = "fecha_contratacion",
             nullable = false)
     private LocalDate hireDate;

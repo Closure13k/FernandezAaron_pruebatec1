@@ -1,6 +1,7 @@
 package com.closure13k.aaronfmpt1.logic.employee;
 
 import com.closure13k.aaronfmpt1.persistence.PersistenceController;
+import com.closure13k.aaronfmpt1.persistence.exceptions.PreexistingEntityException;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class EmployeeController {
     /**
      * Valida y crea al empleado.
      */
-    public void createEmployee(Employee employee) {
+    public void createEmployee(Employee employee) throws PreexistingEntityException {
         pController.createEmployee(employee);
     }
 
@@ -67,8 +68,6 @@ public class EmployeeController {
         pController.updateEmployee(employee);
     }
 
-    //!TODO: Los find son para actualizar, no para mostrar.
-    //!TODO: Manejar null-check.
     public Employee findEmployeeById(int id) {
         return pController.findEmployeeById(id);
     }
