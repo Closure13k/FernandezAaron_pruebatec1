@@ -1,4 +1,4 @@
-package com.closure13k.aaronfmpt1.logic.employee;
+package com.closure13k.aaronfmpt1.logic.exceptions;
 
 public class EmployeeValidationException extends IllegalArgumentException {
     public static final String INVALID_NAME = "El nombre no puede estar vacío.";

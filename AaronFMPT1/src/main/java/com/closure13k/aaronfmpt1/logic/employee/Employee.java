@@ -6,10 +6,16 @@ import java.time.LocalDate;
 
 @Entity(name = "Empleados")
 @NamedQueries({
+        //Lista todos los empleados activos.
         @NamedQuery(name = "Employee.findAllActiveEmployees", query = "SELECT e FROM Empleados e WHERE e.active <> false"),
+        //Devuelve al empleado activo por nif.
         @NamedQuery(name = "Employee.findByNif", query = "SELECT e FROM Empleados e WHERE e.active <> false AND e.nif = :nif"),
+        //Devuelve al empleado inactivo por nif.
         @NamedQuery(name = "Employee.findInactiveByNif", query = "SELECT e FROM Empleados e WHERE e.active = false AND e.nif = :nif"),
+        //Lista todos los empleados filtrados por rol.
         @NamedQuery(name = "Employee.findAllByRole", query = "SELECT e FROM Empleados e WHERE e.active <> false AND lower(e.role) LIKE lower(concat(:role, '%'))"),
+        //Lista los empleados que coincidan con los nif enviados.
+        @NamedQuery(name = "Employee.findByListOfNifs", query = "SELECT e FROM Empleados e WHERE e.nif IN :nifList")
 })
 @Table(uniqueConstraints = {
         //Alter table add

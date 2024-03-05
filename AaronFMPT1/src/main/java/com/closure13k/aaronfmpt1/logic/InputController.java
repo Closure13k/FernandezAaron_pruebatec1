@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public final class InputController {
+
     private static InputController instance;
     private Scanner input;
 

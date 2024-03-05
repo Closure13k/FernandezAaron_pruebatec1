@@ -1,14 +1,15 @@
 package com.closure13k.aaronfmpt1.logic.employee;
 
 import com.closure13k.aaronfmpt1.logic.InputController;
+import com.closure13k.aaronfmpt1.logic.exceptions.EmployeeValidationException;
 
 import java.time.LocalDate;
 
-import static com.closure13k.aaronfmpt1.logic.employee.EmployeeValidationException.INVALID_HIRE_DATE;
-import static com.closure13k.aaronfmpt1.logic.employee.EmployeeValidationException.INVALID_NIF;
-import static com.closure13k.aaronfmpt1.logic.employee.EmployeeValidationException.INVALID_ROLE;
-import static com.closure13k.aaronfmpt1.logic.employee.EmployeeValidationException.INVALID_SALARY;
-import static com.closure13k.aaronfmpt1.logic.employee.EmployeeValidationException.INVALID_SURNAME;
+import static com.closure13k.aaronfmpt1.logic.exceptions.EmployeeValidationException.INVALID_HIRE_DATE;
+import static com.closure13k.aaronfmpt1.logic.exceptions.EmployeeValidationException.INVALID_NIF;
+import static com.closure13k.aaronfmpt1.logic.exceptions.EmployeeValidationException.INVALID_ROLE;
+import static com.closure13k.aaronfmpt1.logic.exceptions.EmployeeValidationException.INVALID_SALARY;
+import static com.closure13k.aaronfmpt1.logic.exceptions.EmployeeValidationException.INVALID_SURNAME;
 
 
 /**

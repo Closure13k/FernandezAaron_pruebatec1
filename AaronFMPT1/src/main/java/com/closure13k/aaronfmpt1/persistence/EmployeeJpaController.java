@@ -30,29 +30,12 @@ public class EmployeeJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Employee employee) throws PreexistingEntityException {
+    public void create(Employee employee) throws PreexistingEntityException, RollbackException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(employee);
-            em.getTransaction().commit();
-        } catch (RollbackException e) {
-            Employee eToUpdate = findInactiveEmployee(employee.getNif());
-            if (eToUpdate == null) {
-                throw new PreexistingEntityException("El empleado con nif " + employee.getNif() + " ya existe.");
-            }
-            em = getEntityManager();
-            em.getTransaction().begin();
-
-            eToUpdate.setActive(true);
-            eToUpdate.setName(employee.getName());
-            eToUpdate.setSurname(employee.getSurname());
-            eToUpdate.setRole(employee.getRole());
-            eToUpdate.setSalary(employee.getSalary());
-            eToUpdate.setHireDate(employee.getHireDate());
-
-            em.merge(eToUpdate);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -168,13 +151,12 @@ public class EmployeeJpaController implements Serializable {
             return (Employee) q.getSingleResult();
         } catch (NoResultException e) {
             return null;
-
         } finally {
             em.close();
         }
     }
 
-    private Employee findInactiveEmployee(String nif) {
+    public Employee findInactiveEmployee(String nif) {
         EntityManager em = getEntityManager();
         try {
             Query q = em.createNamedQuery("Employee.findInactiveByNif");
@@ -182,6 +164,17 @@ public class EmployeeJpaController implements Serializable {
             return (Employee) q.getSingleResult();
         } catch (NoResultException e) {
             return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Employee> findEmployeesByListOfNifs(List<String> employeeNifs) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Employee.findByListOfNifs", Employee.class);
+            q.setParameter("nifList", employeeNifs);
+            return q.getResultList();
         } finally {
             em.close();
         }
@@ -199,6 +192,5 @@ public class EmployeeJpaController implements Serializable {
             em.close();
         }
     }
-
-
 }
+
