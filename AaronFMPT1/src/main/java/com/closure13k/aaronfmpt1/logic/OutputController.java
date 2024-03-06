@@ -15,31 +15,35 @@ public final class OutputController {
                                                                                                            \s
             """;
     private static final String WELCOME_MESSAGE = """
-            Prueba Técnica 1 - Java Básico
-            Hack A Boss - Softtek
-            Aaron Manuel Fernández Mourelle
+             ----------------------------------
+            | Prueba Técnica 1 - Java Básico   |
+            | Hack A Boss - Softtek            |
+            | Aaron Manuel Fernández Mourelle  |
+             ----------------------------------
             """;
 
     public static final String MAIN_MENU = """
-                        
-            Elija una acción:
-            1. Crear empleado
-            2. Eliminar empleado (búsqueda por id o nif)
-            3. Listar a todos los empleados
-            4. Listar, por cargo, a todos los empleados
-            5. Actualizar empleado
-            -1. Salir
+             -----------------------------------------
+            | Elija una acción:
+            | 1. Crear empleado
+            | 2. Eliminar empleado (búsqueda por id o nif)
+            | 3. Listar a todos los empleados
+            | 4. Listar, por cargo, a todos los empleados
+            | 5. Actualizar empleado
+            | -1. Salir
+             -----------------------------------------
             """;
     private static final String UPDATE_MENU = """
-                        
-            Elija una acción para el empleado:
-            1. Modificar nombre
-            2. Modificar apellido
-            3. Modificar cargo
-            4. Modificar salario
-            5. Modificar fecha de contratación
-            0. Guardar cambios y regresar
-            -1. Cancelar y regresar
+             -----------------------------------------
+            | Elija una acción para el empleado:
+            | 1. Modificar nombre
+            | 2. Modificar apellido
+            | 3. Modificar cargo
+            | 4. Modificar salario
+            | 5. Modificar fecha de contratación
+            | 0. Guardar cambios y regresar
+            | -1. Cancelar y regresar
+             -----------------------------------------
             """;
 
     private static final String INVALID_OPTION = "Opción no válida. Inténtelo de nuevo.";

@@ -1,4 +1,4 @@
-package com.closure13k.aaronfmpt1.logic.exceptions;
+package com.closure13k.aaronfmpt1.logic.employee.exceptions;
 
 public class EmployeeException extends Exception {
 

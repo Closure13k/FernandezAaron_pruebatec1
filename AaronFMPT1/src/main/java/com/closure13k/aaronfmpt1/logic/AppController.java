@@ -3,8 +3,8 @@ package com.closure13k.aaronfmpt1.logic;
 import com.closure13k.aaronfmpt1.logic.employee.Employee;
 import com.closure13k.aaronfmpt1.logic.employee.EmployeeController;
 import com.closure13k.aaronfmpt1.logic.employee.EmployeeDetailController;
-import com.closure13k.aaronfmpt1.logic.exceptions.EmployeeException;
-import com.closure13k.aaronfmpt1.logic.exceptions.EmployeeValidationException;
+import com.closure13k.aaronfmpt1.logic.employee.exceptions.EmployeeException;
+import com.closure13k.aaronfmpt1.logic.employee.exceptions.EmployeeValidationException;
 
 import java.util.ArrayList;
 import java.util.List;

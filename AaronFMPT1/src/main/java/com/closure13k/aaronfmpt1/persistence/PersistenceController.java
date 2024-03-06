@@ -1,8 +1,7 @@
 package com.closure13k.aaronfmpt1.persistence;
 
 import com.closure13k.aaronfmpt1.logic.employee.Employee;
-import com.closure13k.aaronfmpt1.logic.exceptions.EmployeeException;
-import com.closure13k.aaronfmpt1.persistence.exceptions.NonexistentEntityException;
+import com.closure13k.aaronfmpt1.logic.employee.exceptions.EmployeeException;
 import com.closure13k.aaronfmpt1.persistence.exceptions.PreexistingEntityException;
 
 import javax.persistence.NoResultException;
@@ -77,11 +76,11 @@ public class PersistenceController {
 
     }
 
-    public void createEmployee(Employee employee) {
+    public void createEmployee(Employee employee) throws EmployeeException {
         try {
             empJpaCont.create(employee);
         } catch (RollbackException e) {
-            System.out.println("petó aquí" + getClass().getSimpleName() + e.getClass());
+            throw new EmployeeException("No se pudo crear al empleado." + e.getMessage());
         } catch (PreexistingEntityException e) {
             throw new RuntimeException(e);
         }

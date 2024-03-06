@@ -40,7 +40,7 @@ public final class EmployeeValidator {
      * @return true si el nombre no está vacío, false si lo está.
      */
     boolean isValidName(String name) {
-        return !name.isBlank();
+        return !name.isBlank() && name.length() < 50;
     }
 
     /**
@@ -52,7 +52,7 @@ public final class EmployeeValidator {
      */
 
     boolean isValidSurname(String surname) {
-        return !surname.isBlank();
+        return !surname.isBlank() && surname.length() < 50;
     }
 
 
@@ -64,7 +64,7 @@ public final class EmployeeValidator {
      * @return true si el rol no está vacío, false si lo está.
      */
     boolean isValidRole(String role) {
-        return !role.isBlank();
+        return !role.isBlank() && role.length() < 50;
     }
 
 

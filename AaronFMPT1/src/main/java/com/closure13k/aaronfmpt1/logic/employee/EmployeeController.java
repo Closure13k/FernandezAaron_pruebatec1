@@ -1,9 +1,8 @@
 package com.closure13k.aaronfmpt1.logic.employee;
 
 import com.closure13k.aaronfmpt1.logic.OutputController;
-import com.closure13k.aaronfmpt1.logic.exceptions.EmployeeException;
+import com.closure13k.aaronfmpt1.logic.employee.exceptions.EmployeeException;
 import com.closure13k.aaronfmpt1.persistence.PersistenceController;
-import com.closure13k.aaronfmpt1.persistence.exceptions.PreexistingEntityException;
 
 import java.util.List;
 
@@ -56,6 +55,9 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Muestra a todos los empleados activos con el rol especificado.
+     */
     public void listAllActiveEmployeesByRole(String role) throws EmployeeException {
         List<Employee> employees = pController.listAllActiveEmployeesByRole(role);
         if (employees.isEmpty()) {
@@ -78,6 +80,13 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Busca al empleado con el id especificado.
+     *
+     * @param id El id a buscar.
+     * @return El empleado con el id especificado.
+     * @throws EmployeeException Si no se encuentra al empleado.
+     */
     public Employee findEmployeeById(int id) throws EmployeeException {
 
         Employee employee = pController.findEmployeeById(id);
@@ -88,7 +97,13 @@ public class EmployeeController {
         return employee;
     }
 
-
+    /**
+     * Busca al empleado con el nif especificado.
+     *
+     * @param nif El nif a buscar.
+     * @return El empleado con el nif especificado.
+     * @throws EmployeeException Si no se encuentra al empleado.
+     */
     public Employee findEmployeeByNif(String nif) throws EmployeeException {
 
         Employee employee = pController.findEmployeeByNif(nif);
@@ -99,6 +114,12 @@ public class EmployeeController {
         return employee;
     }
 
+    /**
+     * Crea por lotes a los empleados.
+     *
+     * @param employees el lote a crear.
+     * @throws EmployeeException Si hay un problema al crear a los empleados. Generalmente activos duplicados.
+     */
     public void batchCreateEmployees(List<Employee> employees) throws EmployeeException {
         try {
             pController.batchCreateEmployees(employees);
