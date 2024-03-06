@@ -55,7 +55,7 @@ En el caso del registro, los intentos se reestablecerán al iniciar un registro 
 ### 🔍Validación de datos
 #### 📇DNI/NIF
 El DNI/NIF se validará con formato básico, es decir, 8 dígitos y una letra. La letra podrá ser mayúscula o minúscula.
-#### 👨‍🦲Nombre, apellidos y cargo
+#### 👩‍💼Nombre, apellidos y cargo
 Se validarán comprobando que no estén en blanco ni superen los 50 caracteres.
 #### 📅Fecha de contratación
 Seguirá el formato `dd/MM/yyyy` (p.ej. 16/12/1976) y se comprobará que sea una fecha válida.
