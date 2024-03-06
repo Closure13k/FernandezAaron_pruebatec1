@@ -58,7 +58,7 @@ El DNI/NIF se validará con formato básico, es decir, 8 dígitos y una letra. L
 #### 👨‍🦲Nombre, apellidos y cargo
 Se validarán comprobando que no estén en blanco ni superen los 50 caracteres.
 #### 📅Fecha de contratación
-Seguirá el formato `dd/MM/yyyy` y se comprobará que sea una fecha válida.
+Seguirá el formato `dd/MM/yyyy` (p.ej. 16/12/1976) y se comprobará que sea una fecha válida.
 #### 💰Salario
 Se comprobará que sea un número positivo.
 
