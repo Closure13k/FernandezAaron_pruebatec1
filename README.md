@@ -68,7 +68,7 @@ Se comprobará que sea un número positivo.
     - Se supone que la búsqueda por NIF sólo devolverá activos.
     - Se supone que la búsqueda por ID devolverá indiscriminadamente.
     - Los listados se realizarán únicamente a los empleados activos.
-- Creación en lotes:
+- Creación en lotes: Supuesta por interpretación del requisito 4 (utilizar colecciones antes de acceder a la base de datos).
     - Se supone que el usuario puede estar interesado en continuar el proceso de creación.
         - Se supone que si el empleado existe y está desactivado, se reactivará y actualizarán sus datos.
         - Se supone que si el empleado existe y no está desactivado, se informará al usuario de su existencia.
